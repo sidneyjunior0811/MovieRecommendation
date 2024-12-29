@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='movie.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Recomendação de Filmes</h1>
+    </header>
+
+    <div class="search-container">
+        <form id="searchForm" method="GET" action="/">
+            <input class="form-control" type="text" name="search" placeholder="Search" value="{{ request.args.get('search', '') }}">
+            <button class="btn" type="submit">Search</button>
+        </form>
+    </div>  
+
+    <div class="container">
+        <p class="movie__total">{{ total_movies }} filmes</p>
+        <ul class="movies">
+            {% if movies_length > 0 %}
+                {% for movie in movies %}
+                    <li class="movie__item">
+                        <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                        <p>{{ movie.title }}</p>
+                        <a href="{{ url_for('getMovieByID', id=movie['id']) }}" class="movie__link"></a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <p>Nenhum filme encontrado.</p>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="/?search={{ request.args.get('search', '') }}&page=1&per_page={{ per_page }}">Primeira</a>
+        <a href="/?search={{ request.args.get('search', '') }}&page={{ page - 1 }}&per_page={{ per_page }}">Anterior</a>
+        {% endif %}
+
+        {% for p in range(start_page, end_page + 1) %}
+            <a href="/?search={{ request.args.get('search', '') }}&page={{ p }}&per_page={{ per_page }}" 
+            class="{% if p == page %}active{% endif %}">{{ p }}</a>
+        {% endfor %}
+
+        {% if page < total_pages %}
+            <a href="/?search={{ request.args.get('search', '') }}&page={{ page + 1 }}&per_page={{ per_page }}">Próxima</a>
+            <a href="/?search={{ request.args.get('search', '') }}&page={{ total_pages }}&per_page={{ per_page }}">Última</a>
+        {% endif %}
+    </div>
+    
+</body>
+</html>

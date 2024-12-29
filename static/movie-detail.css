@@ -1,0 +1,67 @@
+@import url("./reset.css");
+@import url("./common.css");
+
+
+.movie__name {
+    color: yellow;
+    font-weight: bold;
+}
+
+.movie-detail {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+.movie-detail h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #444;
+}
+.movie-detail p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.movies {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.movie__item {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease; 
+}
+
+.movie__item:hover {
+    transform: scale(1.1);
+}
+
+.movie__link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.movie__item img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+.movie__item h1 {
+    font-size: 18px;
+    margin: 10px 0;
+}

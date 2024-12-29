@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Detail</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='movie-detail.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Filmes relacionados à <span class="movie__name">{{ movie.title }}</span></h1>
+    </header>
+    <div class="container">
+        <ul class="movies">
+            {% if movies_length > 0 %}
+                {% for movie in movies %}
+                    <li class="movie__item">
+                        <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                        <p>{{ movie.title }}</p>
+                        <a href="{{ url_for('getMovieByID', id=movie['movie_id']) }}" class="movie__link"></a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <p>Nenhum filme encontrado.</p>
+            {% endif %}
+        </ul>
+    </div>
+</body>
+</html>
